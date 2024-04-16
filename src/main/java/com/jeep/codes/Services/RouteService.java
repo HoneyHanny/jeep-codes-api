@@ -19,23 +19,29 @@ public class RouteService {
     }
 
     public RouteModel addRoute(RouteModel route) {
-        return routeRepository.addRoute(route);
+        return routeRepository.save(route);
     }
 
     public List<RouteModel> getAllRoutes() {
-        return routeRepository.getAllRoutes();
+        return routeRepository.findAll();
     }
 
     public RouteModel getRoute(Long id) {
-        return routeRepository.getRoute(id);
+        return routeRepository.getReferenceById(id);
     }
 
-    public RouteModel updateRoute(Long id, RouteModel route) {
-        return routeRepository.updateRoute(id, route);
+    public RouteModel updateRoute(RouteModel newRoute) {
+        RouteModel oldRoute = routeRepository.findById(newRoute.getRouteId()).orElseThrow();
+
+        oldRoute.setCode(newRoute.getCode());
+
+        return routeRepository.save(oldRoute);
     }
 
-    public RouteModel deleteRoute(Long id) {
-        return routeRepository.deleteRoute(id);
+    public void deleteRoute(Long id) {
+        RouteModel place = routeRepository.findById(id).orElseThrow();
+
+        routeRepository.delete(place);
     }
 
 }

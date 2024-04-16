@@ -19,23 +19,29 @@ public class PlaceService {
     }
 
     public PlaceModel addPlace(PlaceModel place) {
-        return placeRepository.addPlace(place);
+        return placeRepository.save(place);
     }
 
     public List<PlaceModel> getAllPlaces() {
-        return placeRepository.getAllPlaces();
+        return placeRepository.findAll();
     }
 
     public PlaceModel getPlace(Long id) {
-        return placeRepository.getPlace(id);
+        return placeRepository.getReferenceById(id);
     }
 
-    public PlaceModel updatePlace(Long id, PlaceModel place) {
-        return placeRepository.updatePlace(id, place);
+    public PlaceModel updatePlace(PlaceModel newPlace) {
+        PlaceModel oldPlace = placeRepository.findById(newPlace.getPlaceId()).orElseThrow();
+
+        oldPlace.setName(newPlace.getName());
+
+        return placeRepository.save(oldPlace);
     }
 
-    public PlaceModel deletePlace(Long id) {
-        return placeRepository.deletePlace(id);
+    public void deletePlace(Long id) {
+        PlaceModel place = placeRepository.findById(id).orElseThrow();
+
+        placeRepository.delete(place);
     }
 
 }

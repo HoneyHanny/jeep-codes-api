@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/route/")
+@RequestMapping("api/route")
 public class RouteController {
 
     private RouteService routeService;
@@ -24,29 +24,29 @@ public class RouteController {
         this.routeService = routeService;
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public RouteModel addRoute(@RequestBody RouteModel route) {
         return routeService.addRoute(route);
     }
 
-    @GetMapping("get")
+    @GetMapping("/get")
     public List<RouteModel> getAllRoutes() {
         return routeService.getAllRoutes();
     }
 
-    @GetMapping("get/{id}")
-    public RouteModel getRoute(@PathVariable Long id) {
+    @GetMapping("/get/{id}")
+    public RouteModel getRoute(@PathVariable long id) {
         return routeService.getRoute(id);
     }
 
-    @PutMapping("update/{id}")
-    public RouteModel updateRoute(@PathVariable Long id, @RequestBody RouteModel route) {
-        return routeService.updateRoute(id, route);
+    @PutMapping("/update/{id}")
+    public RouteModel updateRoute(@RequestBody RouteModel route) {
+        return routeService.updateRoute(route);
     }
 
     @DeleteMapping("delete/{id}")
-    public RouteModel deleteRoute(@PathVariable Long id) {
-        return routeService.deleteRoute(id);
+    public void deleteRoute(@PathVariable long id) {
+        routeService.deleteRoute(id);
     }
 
 }

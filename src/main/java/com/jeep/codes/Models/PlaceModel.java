@@ -5,10 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "places")
 public class PlaceModel {
 
     @Id
@@ -19,12 +21,7 @@ public class PlaceModel {
     @Column(name = "name")
     private String name;
 
-    PlaceModel(Long placeId, String name) {
-        this.placeId = placeId;
-        this.name = name;
-    }
-
-    PlaceModel(String name) {
+    public PlaceModel(String name) {
         this.name = name;
     }
 
